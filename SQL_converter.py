@@ -278,9 +278,9 @@ def SQL_converter_function(filename):
     ds.attrs['IGORWaveNote'] = Wave_Note_ascii
     
     if L_mode == "WideAngleMode":
-        wide_angle = 11
+        wide_angle = 11*2
     elif L_mode == "LowAngleMode":
-        wide_angle = 7
+        wide_angle = 7*2
         
     ds.attrs['IGORWaveScaling'] = [[0,0],[e_delta,e_min],[float(wide_angle/int(non_energy_channels.iloc[0,0])),-wide_angle/2],[z_delta,z_min]]
     
