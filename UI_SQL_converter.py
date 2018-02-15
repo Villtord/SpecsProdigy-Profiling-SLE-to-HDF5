@@ -27,7 +27,7 @@ class Ui_SQL_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(346, 149)
-        Dialog.setStyleSheet("background-color:darkCyan")
+#        Dialog.setStyleSheet("background-color:Grey")
         
         self.gridLayout = QtWidgets.QGridLayout(Dialog)
         self.gridLayout.setObjectName("gridLayout")
@@ -40,7 +40,7 @@ class Ui_SQL_Dialog(object):
         self.progressBar = QtWidgets.QProgressBar(Dialog)
         self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
-#        self.progressBar.setStyleSheet("background-color:white")
+        self.progressBar.setStyleSheet("background-color:white")
         self.gridLayout.addWidget(self.progressBar, 2, 0, 1, 2)
         
         self.Convert = QtWidgets.QPushButton(Dialog)
@@ -65,7 +65,7 @@ class Ui_SQL_Dialog(object):
         self.History.ensureCursorVisible
 #        self.History.setStyleSheet("background-color:white")
 
-        Dialog.setWindowTitle("Convert Prodigy SLE ---> HDF5  v1.1")
+        Dialog.setWindowTitle("Prodigy SLE Map --> HDF5 v1.1")
         self.btnBrowse.setText("Browse")
         self.Convert.setText("Convert")
         self.Filename.setText("Choose file(s) to convert")

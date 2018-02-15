@@ -24,6 +24,8 @@ def SQL_converter_function(filename):
     ####################### Create HDF5 file NEXUS #################
     ####################################################################
     
+#    filename    =   "qFS_LT_15minSn.sle"
+    
     fileNameHDF5 = filename.replace(".sle",".hdf5")
     
     f = h5py.File(fileNameHDF5, "w")
@@ -36,11 +38,11 @@ def SQL_converter_function(filename):
     f.attrs['instrument']       = 'SPECS Prodigy'
     f.attrs['HDF5_Version']     = h5py.version.hdf5_version
     f.attrs['h5py_version']     = h5py.version.version
-   
+       
     ####################################################################
     ####################### Work with sqlite database #################
     ####################################################################
-   
+       
     cnx = sqlite3.connect(filename)
     
     raw_id      =   sql.read_sql ('''
@@ -229,7 +231,6 @@ def SQL_converter_function(filename):
         result  =   soup.find('FixedAnalyzerTransmissionSettings')
         e_min   =   float(result.attrs['Ekin'])
         e_max   =   float(result.attrs['End'])
-        e_delta =   float((e_max-e_min)/(float(result.attrs['NumValues'])-1))
         E_pass  =   int(result.attrs['Epass'])
         L_mode  =   str(result.attrs['LensMode'])
         N_scans =   int(result.attrs['NumScans'])
@@ -239,11 +240,11 @@ def SQL_converter_function(filename):
     except:
         pass
     
+    
     try:
         result  =   soup.find('SnapshotFATSettings')
         e_min   =   float(result.attrs['Ekin'])
         e_max   =   float(result.attrs['End'])
-        e_delta =   float((e_max-e_min)/(float(result.attrs['NumValues'])-1))
         E_pass  =   int(result.attrs['Epass'])
         L_mode  =   str(result.attrs['LensMode'])
         N_scans =   int(result.attrs['NumScans'])
@@ -270,12 +271,14 @@ def SQL_converter_function(filename):
         z_max=list_of_MCU_positions[2]
         z_delta=float((z_max-z_min)/int((np.shape(data_final[1,1,:])[0])-1))    
     
+    e_delta =   float((e_max-e_min)/int((np.shape(data_final[:,1,1])[0])-1))
+    
     Wave_Note=['Scan_Mode = '+scan_mode+', Lens_Mode = '+L_mode+', Pass_energy = '+str(E_pass)+' eV, Scans = '+str(N_scans)]
     Wave_Note_ascii = [n.encode("ascii", "ignore") for n in Wave_Note]
     ds.attrs['IGORWaveNote'] = Wave_Note_ascii
     
     if L_mode == "WideAngleMode":
-        wide_angle = 12
+        wide_angle = 11
     elif L_mode == "LowAngleMode":
         wide_angle = 7
         

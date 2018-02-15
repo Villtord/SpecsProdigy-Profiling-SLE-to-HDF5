@@ -97,11 +97,6 @@ class ExampleApp(QWidget, Ui_SQL_Dialog):
             del filenames_list[-1]
             self.progressBar.setMaximum(len(filenames_list))
             self.progressBar.setProperty("value", 0)
-            
-#            if self.Rename.isChecked():
-#                flag=True
-#            else:
-#                flag=False
             flag=False               
             filenames_list.append(flag)
 
